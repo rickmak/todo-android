@@ -20,4 +20,18 @@
         android:minLines="2"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/partial_to_do_checkbox"
+        android:id="@+id/partial_to_do_edit_task"
+        android:hint="@string/to_do_edit_task_hint"
+        android:inputType="text"
+        android:minLines="2"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -4,7 +4,6 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,26 +18,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.ToDoListFinishedListener {
+public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.ToDoListListener {
     private ToDoItemAdapter adapter;
     private Button addButton, finishButton;
     private Context context;
+    private boolean isEditing = false;
 
     private List<Task> tasks = new ArrayList<>();
-    private int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
         context = this;
-        finishButton = (Button) findViewById(R.id.to_do_finished_button);
+
+        addButton = (Button) findViewById(R.id.partial_to_do_footer_add);
+        finishButton = (Button) findViewById(R.id.partial_to_do_footer_finish);
 
         adapter = new ToDoItemAdapter(this);
-        tasks = getDatabaseHelper().getAllUnfinishedtasks();
-        adapter.addAll(tasks);
-        View view = LayoutInflater.from(this).inflate(R.layout.partial_to_do_footer, getListView(), false);
-        addButton = (Button) view.findViewById(R.id.partial_to_do_footer_add);
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,15 +47,15 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count ++;
-                Task task = new Task("Task " + count);
-                tasks.add(task);
-                getDatabaseHelper().createTask(task);
-                adapter.clear();
-                adapter.addAll(tasks);
+                if (!isEditing) {
+                    isEditing = true;
+                    tasks.add(new Task());
+                    adapter.clear();
+                    adapter.addAll(tasks);
+                    getListView().setSelection(getListView().getCount() - 1);
+                }
             }
         });
-        getListView().addFooterView(view);
         setListAdapter(adapter);
     }
 
@@ -85,10 +82,25 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        tasks = getDatabaseHelper().getAllUnfinishedtasks();
+        adapter.clear();
+        adapter.addAll(tasks);
+    }
+
+    @Override
     public void setTaskFinished(int position) {
         getDatabaseHelper().updateTask(tasks.remove(position));
         adapter.clear();
         adapter.addAll(tasks);
+    }
+
+    @Override
+    public void setEditTaskFinished(int position, Task task) {
+        task.setId((int) getDatabaseHelper().createTask(task));
+        tasks.set(position, task);
+        isEditing = false;
     }
 
     private DatabaseHelper getDatabaseHelper() {

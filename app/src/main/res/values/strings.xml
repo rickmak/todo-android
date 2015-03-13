@@ -6,6 +6,7 @@
     <string name="name_to_do_activity">To Do List</string>
     <string name="to_do_list_finish_text">See Finished Items</string>
     <string name="to_do_footer_add">+</string>
+    <string name="to_do_edit_task_hint">Enter Your Entry Here</string>
 
     <!-- FinishedListActivity -->
     <string name="name_finished_activity">Finished List</string>

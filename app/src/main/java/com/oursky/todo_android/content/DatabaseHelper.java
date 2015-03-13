@@ -158,5 +158,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update(TABLE_TASK, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(task.getId()) });
     }
-
 }
