@@ -6,7 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.oursky.todo_android.R;
-import com.oursky.todo_android.content.model.Item;
+import com.oursky.todo_android.content.DatabaseHelper;
+import com.oursky.todo_android.content.model.Task;
 import com.oursky.todo_android.widget.FinishedItemAdapter;
 
 import java.util.ArrayList;
@@ -18,21 +19,16 @@ import java.util.List;
 public class FinishedListActivity extends ListActivity {
     private FinishedItemAdapter adapter;
 
-    private List<Item> items = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finished_list);
 
-        String task = getIntent().getStringExtra("finished");
-        if (task != null) {
-            Item item = new Item(task);
-            items.add(item);
-        }
-
         adapter = new FinishedItemAdapter(this);
-        adapter.addAll(items);
+        tasks = getDatabaseHelper().getAllFinishedTasks();
+        adapter.addAll(tasks);
 
         setListAdapter(adapter);
     }
@@ -57,5 +53,9 @@ public class FinishedListActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private DatabaseHelper getDatabaseHelper() {
+        return ((BaseApplication) getApplication()).getDatabaseHelper();
     }
 }

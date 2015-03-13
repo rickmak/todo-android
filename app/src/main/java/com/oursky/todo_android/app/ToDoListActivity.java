@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.oursky.todo_android.R;
-import com.oursky.todo_android.content.model.Item;
+import com.oursky.todo_android.content.DatabaseHelper;
+import com.oursky.todo_android.content.model.Task;
 import com.oursky.todo_android.widget.ToDoItemAdapter;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
     private Button addButton, finishButton;
     private Context context;
 
-    private List<Item> items = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
     private int count;
 
     @Override
@@ -34,7 +35,8 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
         finishButton = (Button) findViewById(R.id.to_do_finished_button);
 
         adapter = new ToDoItemAdapter(this);
-        adapter.addAll(items);
+        tasks = getDatabaseHelper().getAllUnfinishedtasks();
+        adapter.addAll(tasks);
         View view = LayoutInflater.from(this).inflate(R.layout.partial_to_do_footer, getListView(), false);
         addButton = (Button) view.findViewById(R.id.partial_to_do_footer_add);
 
@@ -42,7 +44,6 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, FinishedListActivity.class);
-                intent.putExtra("finished", "Task 1");
                 startActivity(intent);
             }
         });
@@ -50,9 +51,11 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
             @Override
             public void onClick(View v) {
                 count ++;
-                items.add(new Item("Task " + count));
+                Task task = new Task("Task " + count);
+                tasks.add(task);
+                getDatabaseHelper().createTask(task);
                 adapter.clear();
-                adapter.addAll(items);
+                adapter.addAll(tasks);
             }
         });
         getListView().addFooterView(view);
@@ -83,8 +86,12 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
 
     @Override
     public void setTaskFinished(int position) {
-        items.remove(position);
+        getDatabaseHelper().updateTask(tasks.remove(position));
         adapter.clear();
-        adapter.addAll(items);
+        adapter.addAll(tasks);
+    }
+
+    private DatabaseHelper getDatabaseHelper() {
+        return ((BaseApplication) getApplication()).getDatabaseHelper();
     }
 }

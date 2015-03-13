@@ -8,12 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.oursky.todo_android.R;
-import com.oursky.todo_android.content.model.Item;
+import com.oursky.todo_android.content.model.Task;
 
 /**
  * Created by yuyauchun on 13/3/15.
  */
-public class FinishedItemAdapter extends ArrayAdapter<Item> {
+public class FinishedItemAdapter extends ArrayAdapter<Task> {
     private Context context;
     private LayoutInflater inflater;
 
@@ -31,8 +31,8 @@ public class FinishedItemAdapter extends ArrayAdapter<Item> {
         }
         FinishedItemViewHolder holder = (FinishedItemViewHolder) convertView.getTag();
 
-        Item item = getItem(position);
-        holder.task.setText(item.getTask());
+        Task task = getItem(position);
+        holder.task.setText(task.getTask());
         return convertView;
     }
 

@@ -10,12 +10,12 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.oursky.todo_android.R;
-import com.oursky.todo_android.content.model.Item;
+import com.oursky.todo_android.content.model.Task;
 
 /**
  * Created by yuyauchun on 13/3/15.
  */
-public class ToDoItemAdapter extends ArrayAdapter<Item> {
+public class ToDoItemAdapter extends ArrayAdapter<Task> {
     private Context context;
     private LayoutInflater inflater;
     private ToDoListFinishedListener listener;
@@ -43,13 +43,13 @@ public class ToDoItemAdapter extends ArrayAdapter<Item> {
         }
         ToDoItemViewHolder holder = (ToDoItemViewHolder) convertView.getTag();
 
-        final Item item = getItem(position);
-        holder.task.setText(item.getTask());
-        holder.checkBox.setChecked(item.isTaskFinished());
+        final Task task = getItem(position);
+        holder.task.setText(task.getTask());
+        holder.checkBox.setChecked(task.isFinished());
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                item.setisFinished(isChecked);
+                task.setIsFinished(isChecked);
                 if (isChecked) {
                     listener.setTaskFinished(position);
                 }
