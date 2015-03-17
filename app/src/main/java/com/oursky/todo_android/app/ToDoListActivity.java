@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.oursky.todo_android.R;
@@ -24,7 +26,7 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
     private Context context;
     private boolean isEditing = false;
 
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<Task>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,27 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
                 }
             }
         });
+        getListView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (getSelectedItemPosition() != tasks.size() - 1) {
+                    hideKeyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
         setListAdapter(adapter);
+    }
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        view.clearFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override

@@ -26,7 +26,7 @@ public class FinishedListActivity extends ListActivity {
     private FinishedItemAdapter adapter;
     private int selectedPosition;
 
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<Task>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

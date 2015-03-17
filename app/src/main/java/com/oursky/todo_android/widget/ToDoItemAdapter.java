@@ -1,6 +1,7 @@
 package com.oursky.todo_android.widget;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,10 +68,27 @@ public class ToDoItemAdapter extends ArrayAdapter<Task> {
             holder.editTask.setVisibility(View.VISIBLE);
             holder.task.setVisibility(View.GONE);
         }
+        holder.editTask.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (v != null && v.getParent() != null && !TextUtils.isEmpty(((EditText)v).getText())) {
+                        ((EditText) v).setOnEditorActionListener(null);
+                        String taskk = ((EditText) v).getText().toString();
+                        task.setTask(taskk);
+                        holder.task.setText(taskk);
+                        v.setVisibility(View.GONE);
+                        holder.task.setVisibility(View.VISIBLE);
+                        listener.setEditTaskFinished(position, task);
+                    }
+                }
+            }
+        });
         holder.editTask.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
+
                     String taskk = ((EditText) v).getText().toString();
                     task.setTask(taskk);
                     holder.task.setText(taskk);
