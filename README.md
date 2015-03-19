@@ -10,7 +10,7 @@ Android Studio 1.1
 - Press add will not focus on the new input
 - Keyboard will not dismiss itself on added an item
 - The alignment of item content and checkbox is wrong
-- Multiple add item
+- Add item failed
     - Press add item
     - focus the text box
     - Turn off the phone
