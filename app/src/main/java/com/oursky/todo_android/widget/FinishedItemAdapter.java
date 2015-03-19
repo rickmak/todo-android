@@ -31,8 +31,7 @@ public class FinishedItemAdapter extends ArrayAdapter<Task> {
         }
         FinishedItemViewHolder holder = (FinishedItemViewHolder) convertView.getTag();
 
-        Task task = getItem(position);
-        holder.task.setText(task.getTask());
+        holder.setTask(getItem(position));
         return convertView;
     }
 
@@ -41,6 +40,10 @@ public class FinishedItemAdapter extends ArrayAdapter<Task> {
 
         public FinishedItemViewHolder(View view) {
             task = (TextView) view.findViewById(R.id.partial_finished_task);
+        }
+
+        public void setTask(Task t) {
+            task.setText(t.getTask());
         }
     }
 }

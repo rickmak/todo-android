@@ -53,10 +53,10 @@ public class ToDoItemAdapter extends ArrayAdapter<Task> {
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                task.setIsFinished(isChecked);
-                if (isChecked) {
-                    listener.setTaskFinished(position);
-                }
+            task.setIsFinished(isChecked);
+            if (isChecked) {
+                listener.setTaskFinished(position);
+            }
             }
         });
         if (task.getTask() != null && task.getTask().length() != 0) {
@@ -71,24 +71,9 @@ public class ToDoItemAdapter extends ArrayAdapter<Task> {
         holder.editTask.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (v != null && v.getParent() != null && !TextUtils.isEmpty(((EditText)v).getText())) {
-                        ((EditText) v).setOnEditorActionListener(null);
-                        String taskk = ((EditText) v).getText().toString();
-                        task.setTask(taskk);
-                        holder.task.setText(taskk);
-                        v.setVisibility(View.GONE);
-                        holder.task.setVisibility(View.VISIBLE);
-                        listener.setEditTaskFinished(position, task);
-                    }
-                }
-            }
-        });
-        holder.editTask.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-
+            if (!hasFocus) {
+                if (v != null && v.getParent() != null && !TextUtils.isEmpty(((EditText)v).getText())) {
+                    ((EditText) v).setOnEditorActionListener(null);
                     String taskk = ((EditText) v).getText().toString();
                     task.setTask(taskk);
                     holder.task.setText(taskk);
@@ -96,7 +81,21 @@ public class ToDoItemAdapter extends ArrayAdapter<Task> {
                     holder.task.setVisibility(View.VISIBLE);
                     listener.setEditTaskFinished(position, task);
                 }
-                return false;
+            }
+            }
+        });
+        holder.editTask.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String taskk = ((EditText) v).getText().toString();
+                task.setTask(taskk);
+                holder.task.setText(taskk);
+                v.setVisibility(View.GONE);
+                holder.task.setVisibility(View.VISIBLE);
+                listener.setEditTaskFinished(position, task);
+            }
+            return false;
             }
         });
         return convertView;

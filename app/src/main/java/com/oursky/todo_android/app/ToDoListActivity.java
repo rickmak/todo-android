@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.ToDoListListener {
+public class ToDoListActivity extends ListActivity
+implements ToDoItemAdapter.ToDoListListener {
     private ToDoItemAdapter adapter;
     private Button addButton, finishButton;
     private Context context;
@@ -42,30 +43,20 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, FinishedListActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(context, FinishedListActivity.class);
+            startActivity(intent);
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isEditing) {
-                    isEditing = true;
-                    tasks.add(new Task());
-                    adapter.clear();
-                    adapter.addAll(tasks);
-                    getListView().setSelection(getListView().getCount() - 1);
-                }
+            if (!isEditing) {
+                isEditing = true;
+                tasks.add(new Task());
+                adapter.clear();
+                adapter.addAll(tasks);
+                getListView().setSelection(getListView().getCount() - 1);
             }
-        });
-        getListView().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (getSelectedItemPosition() != tasks.size() - 1) {
-                    hideKeyboard();
-                    return true;
-                }
-                return false;
             }
         });
         setListAdapter(adapter);
@@ -76,8 +67,10 @@ public class ToDoListActivity extends ListActivity implements ToDoItemAdapter.To
         View view = this.getCurrentFocus();
         view.clearFocus();
         if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            InputMethodManager inputManager =
+                (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(
+                view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
