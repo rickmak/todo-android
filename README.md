@@ -2,27 +2,24 @@
 A Simple todo app run in Android.
 This project do not have any extenal dependcies.
 
-Android Studio 1.1
+Android Studio 1.4
 
 
 ## Bugs:
 
-- Press add will not focus on the new input
-- Keyboard will not dismiss itself on added an item
 - The alignment of item content and checkbox is wrong
 - Add item failed
     - Press add item
     - focus the text box
     - Turn off the phone
     - The edittext gone and can't add item
+- Keyboard will not dismiss itself on added an item
 
 ## Tasks, with priority:
 
 1. Fix the above bugs
-2. Enable edit of existing todo
-3. The `ToDoItemAdapter` event binding and rendering is mixed up, try to separate them
-4. Design and suggest an API for saveing the todolist on a server
-5. Any refractoring you think will make the code better
+1. The `ToDoItemAdapter` event binding and rendering is mixed up, try to separate them
+1. Any refractoring you think will make the code better
 
 ## Constraint
 
