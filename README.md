@@ -7,7 +7,6 @@ Android Studio 1.4
 
 ## Bugs:
 
-- The alignment of item content and checkbox is wrong
 - Add item failed
     - Press add item
     - focus the text box
