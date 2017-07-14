@@ -24,7 +24,6 @@ Android Studio 1.4
 
 - You are not allow to import extenal library
 - Time limits is 1 hr
-- Commit should be atomic
 
 ## Evalation
 
