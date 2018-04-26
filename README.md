@@ -1,9 +1,8 @@
 # todo-android
 A Simple todo app run in Android.
-This project do not have any extenal dependcies.
+This project do not have any external dependencies.
 
-Android Studio 1.4
-
+Android Studio 3.2
 
 ## Bugs:
 
@@ -16,13 +15,15 @@ Android Studio 1.4
 
 ## Tasks, with priority:
 
+1. Show m eyou can read code and produce good clean code
 1. Fix the above bugs
-1. The `ToDoItemAdapter` event binding and rendering is mixed up, try to separate them
+1. The `ToDoItemAdapter` event binding and rendering is mixed up, try to
+   separate them
 1. Any refractoring you think will make the code better
 
 ## Constraint
 
-- You are not allow to import extenal library
+- You are not allow to import external library
 - Time limits is 1 hr
 
 ## Evalation
