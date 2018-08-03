@@ -15,18 +15,18 @@ Android Studio 3.2
 
 ## Tasks, with priority:
 
-1. Show m eyou can read code and produce good clean code
+1. Show me you can read code and produce good clean code
 1. Fix the above bugs
 1. The `ToDoItemAdapter` event binding and rendering is mixed up, try to
    separate them
-1. Any refractoring you think will make the code better
+1. Any refactoring you think will make the code better
 
 ## Constraint
 
 - You are not allow to import external library
 - Time limits is 1 hr
 
-## Evalation
+## Evaluation
 
 - We look for clean code
 - We look for maintainable code
